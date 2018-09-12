@@ -8,7 +8,7 @@ export const FINISH_QUIZ = 'FINISH_QUIZ';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const TRACK_CATEGORY = 'TRACK_CATEGORY';
 export const TRACK_DIFFICULTY = 'TRACK_DIFFICULTY';
-export const TRACK_NUM_Q = 'TRACK_NUM_Q';
+export const TRACK_AMOUNT = 'TRACK_AMOUNT';
 
 // Action Creators
 export async function StartNewQuiz({ category, difficulty, amount, type }) {

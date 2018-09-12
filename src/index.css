@@ -3,3 +3,13 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.button {
+}
+
+.button_true {
+}
+
+.button_false {
+  background: red;
+}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from '../reducers';
@@ -12,15 +12,27 @@ class Main extends React.Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div className="main">
-            <Route path="/" component={Home} />
-            <Route path="/quiz/:id" component={Quiz} />
+          <Switch>
+            <Route path="/quiz/:id" component={QuizRoute} />
             <Route path="/results" component={Results} />
-          </div>
+            <Route path="/" component={Home} />
+          </Switch>
         </BrowserRouter>
       </Provider>
     );
   }
+}
+
+function QuizRoute(props, ctx) {
+  const { match } = props;
+  return (
+    <div>
+      <h2>{match.params.id}</h2>
+      <pre>
+        <code>{JSON.stringify(ctx, null, 4)}</code>
+      </pre>
+    </div>
+  );
 }
 
 export default Main;

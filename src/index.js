@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import Main from "./components/main";
-import registerServiceWorker from "./registerServiceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './routes/index';
+import registerServiceWorker from './registerServiceWorker';
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 
 if (root !== null) {
-  ReactDOM.render(<Main />, root);
+  ReactDOM.render(<App />, root);
   registerServiceWorker();
 }
