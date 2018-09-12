@@ -7,26 +7,36 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
+
+function GoodIcon() {
+  return (
+    <Avatar style={{ background: '#4CAF50' }}>
+      <DoneAllIcon />
+    </Avatar>
+  );
+}
+
+function BadIcon() {
+  return (
+    <Avatar style={{ background: '#E53935' }}>
+      <ErrorIcon />
+    </Avatar>
+  );
+}
 
 function QuestionResult({ question }) {
+  const isCorrect = question.answer === question.correct_answer;
+
   return (
     <ListItem>
-      <ListItemAvatar>
-        <Avatar>
-          <FolderIcon />
-        </Avatar>
-      </ListItemAvatar>
+      <ListItemAvatar>{isCorrect ? <GoodIcon /> : <BadIcon />}</ListItemAvatar>
       <ListItemText
         primary={question.question}
-        secondary={question.answer ? question.answer : 'No answer'}
+        secondary={
+          question.answer ? `${question.answer} - (${question.correct_answer})` : 'No answer'
+        }
       />
     </ListItem>
   );

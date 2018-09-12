@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 
 import store from '../reducers';
@@ -10,12 +10,13 @@ import Results from '../components/results';
 import { AnswerQuestion } from '../actions/quiz';
 
 function mapStateToProps(state) {
-  const { quizzes, category, difficulty, amount } = state.quizReducer;
+  const { quizzes, category, difficulty, amount, type } = state.quizReducer;
   return {
     quizzes,
     category,
     difficulty,
     amount,
+    type,
   };
 }
 
@@ -38,7 +39,7 @@ class Main extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route path="/quiz/:id" component={wrap(QuizRoute)} />
-            <Route path="/results/:id" component={wrap(Results)} />
+            <Route path="/results/:id" component={wrap(ResultsRoute)} />
             <Route path="/" component={wrap(Home)} />
           </Switch>
         </BrowserRouter>
@@ -55,34 +56,47 @@ function QuizNotFound({ id }) {
   );
 }
 
-function QuizRoute(props, ctx) {
-  // Get router & state from props
-  const { match, quizzes } = props;
-  // Quiz ID (from router params)
-  const { id } = match.params;
-  // Find matching quiz
-  const quiz = quizzes.filter(q => q.id === id)[0];
-
-  if (!quiz) {
-    return <QuizNotFound id={id} />;
+class QuizRoute extends React.Component {
+  currentQuiz() {
+    // Get router & state from props
+    const { match, quizzes } = this.props;
+    // Quiz ID (from router params)
+    const { id } = match.params;
+    // Find matching quiz
+    return quizzes.filter(q => q.id === id)[0];
   }
 
-  const onAnswer = answer =>
-    props.dispatch(
+  onAnswer = answer => {
+    this.props.dispatch(
       AnswerQuestion({
-        id,
+        id: this.currentQuiz().id,
         answer,
       })
     );
+  };
 
-  return (
-    <div>
-      <Quiz quiz={quiz} onAnswer={onAnswer} />
-    </div>
-  );
+  render() {
+    const quiz = this.currentQuiz();
+
+    // No quiz
+    if (!quiz) {
+      return <Redirect to="/" />;
+    }
+
+    // Quiz is finished
+    if (quiz.finishedAt) {
+      return <Redirect to={`/results/${quiz.id}`} />;
+    }
+
+    return (
+      <div>
+        <Quiz quiz={quiz} onAnswer={this.onAnswer} />
+      </div>
+    );
+  }
 }
 
-function ResultsRoute(props, ctx) {
+function ResultsRoute(props) {
   // Get router & state from props
   const { match, quizzes } = props;
   // Quiz ID (from router params)

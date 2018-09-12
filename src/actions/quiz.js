@@ -9,6 +9,7 @@ export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const TRACK_CATEGORY = 'TRACK_CATEGORY';
 export const TRACK_DIFFICULTY = 'TRACK_DIFFICULTY';
 export const TRACK_AMOUNT = 'TRACK_AMOUNT';
+export const TRACK_TYPE = 'TRACK_TYPE';
 
 // Action Creators
 export async function StartNewQuiz({ category, difficulty, amount, type }) {
@@ -75,9 +76,17 @@ export function TrackDifficulty({ difficulty }) {
 
 export function TrackAmount({ amount }) {
   return {
-    type: TRACK_DIFFICULTY,
+    type: TRACK_AMOUNT,
     payload: {
       amount,
+    },
+  };
+}
+export function TrackType({ type }) {
+  return {
+    type: TRACK_TYPE,
+    payload: {
+      type,
     },
   };
 }

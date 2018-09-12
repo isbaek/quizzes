@@ -32,7 +32,7 @@ export default [
     value: '16',
   },
   {
-    name: '  Science & Nature',
+    name: 'Science & Nature',
     value: '17',
   },
   {
@@ -96,7 +96,7 @@ export default [
     value: '32',
   },
   {
-    name: 'Any Category',
+    name: 'All Categories',
     value: 'any',
   },
 ];
