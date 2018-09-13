@@ -2,6 +2,7 @@
 
 import {
   START_QUIZ,
+  ERR_QUIZ,
   FINISH_QUIZ,
   ANSWER_QUESTION,
   TRACK_CATEGORY,
@@ -10,48 +11,59 @@ import {
   TRACK_TYPE,
 } from '../actions/quiz';
 
+function getCachedOptions() {
+  try {
+    const cachedOptions = JSON.parse(localStorage.getItem('quizzes'));
+    return cachedOptions;
+  } catch (error) {
+    return null;
+  }
+}
+
 const INITIAL_STATE = {
-  quizzes: [
-    {
-      id: 'test',
-      questions: [
-        {
-          category: 'Entertainment: Film',
-          type: 'boolean',
-          difficulty: 'easy',
-          question: 'Shaquille O&#039;Neal appeared in the 1997 film &quot;Space Jam&quot;.',
-          correct_answer: 'False',
-          incorrect_answers: ['True'],
-        },
-        {
-          category: 'Entertainment: Video Games',
-          type: 'multiple',
-          difficulty: 'medium',
-          question: 'What was the main currency in Club Penguin?',
-          correct_answer: 'Coins',
-          incorrect_answers: ['Stamps', 'Tickets', 'Gems'],
-        },
-        {
-          category: 'Entertainment: Video Games',
-          type: 'multiple',
-          difficulty: 'medium',
-          question: 'Which of these characters is NOT a boss in Crash Bash?',
-          correct_answer: 'Ripper Roo',
-          incorrect_answers: ['Papu Papu', 'Komodo brothers', 'Nitros Oxide'],
-        },
-      ],
-      answers: ['True', 'Coins'],
-      startedAt: Date.now(),
-      finishedAt: null,
-    },
-  ],
+  // quizzes: [
+  //   {
+  //     id: 'test',
+  //     questions: [
+  //       {
+  //         category: 'Entertainment: Film',
+  //         type: 'boolean',
+  //         difficulty: 'easy',
+  //         question: 'Shaquille O&#039;Neal appeared in the 1997 film &quot;Space Jam&quot;.',
+  //         correct_answer: 'False',
+  //         incorrect_answers: ['True'],
+  //       },
+  //       {
+  //         category: 'Entertainment: Video Games',
+  //         type: 'multiple',
+  //         difficulty: 'medium',
+  //         question: 'What was the main currency in Club Penguin?',
+  //         correct_answer: 'Coins',
+  //         incorrect_answers: ['Stamps', 'Tickets', 'Gems'],
+  //       },
+  //       {
+  //         category: 'Entertainment: Video Games',
+  //         type: 'multiple',
+  //         difficulty: 'medium',
+  //         question: 'Which of these characters is NOT a boss in Crash Bash?',
+  //         correct_answer: 'Ripper Roo',
+  //         incorrect_answers: ['Papu Papu', 'Komodo brothers', 'Nitros Oxide'],
+  //       },
+  //     ],
+  //     answers: ['True', 'Coins'],
+  //     startedAt: Date.now(),
+  //     finishedAt: null,
+  //   },
+  // ],
+  quizzes: getCachedOptions() ? getCachedOptions() : [],
   amount: '10',
   difficulty: 'medium',
   category: {
     name: 'All Categories',
     value: 'any',
   },
-  type: 'any',
+  type: 'boolean',
+  error: null,
 };
 
 // updateQuiz makes it easy to update a specific quiz in the state
@@ -81,6 +93,11 @@ const quizReducer = (state = INITIAL_STATE, action) => {
         ...q,
         finishedAt: action.payload.finishedAt,
       }));
+    case ERR_QUIZ:
+      return {
+        ...state,
+        error: action.payload.error,
+      };
     case ANSWER_QUESTION:
       return updateQuiz(state, action.payload.id, q => {
         // Automatically mark as finished if we have all our answers

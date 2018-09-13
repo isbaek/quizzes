@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+
+import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,7 +9,13 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import { TrackCategory, TrackDifficulty, TrackAmount, TrackType } from '../actions/quiz';
+import {
+  StartNewQuiz,
+  TrackCategory,
+  TrackDifficulty,
+  TrackAmount,
+  TrackType,
+} from '../actions/quiz';
 import CATEGORIES from '../constants/categories';
 import { dispatch } from 'rxjs/internal/observable/range';
 
@@ -20,7 +27,9 @@ function Picker({ title, help, value, values, names, onChange }) {
       </InputLabel>
       <Select value={value} onChange={onChange} displayEmpty name="age">
         {values.map((v, idx) => (
-          <MenuItem value={v}>{names ? names[idx] : v}</MenuItem>
+          <MenuItem key={idx} value={v}>
+            {names ? names[idx] : v}
+          </MenuItem>
         ))}
       </Select>
       <FormHelperText>{help}</FormHelperText>
@@ -29,15 +38,29 @@ function Picker({ title, help, value, values, names, onChange }) {
 }
 
 class Home extends React.Component {
+  onSubmit = e => {
+    const { dispatch, category, difficulty, amount, type, history } = this.props;
+    e.preventDefault();
+    dispatch(
+      StartNewQuiz({
+        category: category.value,
+        difficulty,
+        amount,
+        type,
+      })
+    ).then(res => this.props.history.push(`/quiz/${res.payload.id}`));
+  };
+
   render() {
     const { amount, category, difficulty, dispatch, type } = this.props;
 
     return (
       <div className="home">
-        <form autoComplete="off">
+        <form autoComplete="off" onSubmit={this.onSubmit}>
           <Picker
+            key="category"
             title="Category"
-            help="Type of questions you want to see"
+            help="Question Category"
             value={category.value}
             values={CATEGORIES.map(c => c.value)}
             names={CATEGORIES.map(c => c.name)}
@@ -52,6 +75,7 @@ class Home extends React.Component {
           />
 
           <Picker
+            key="difficulty"
             title="Difficulty"
             help="Zero or hero ?"
             value={difficulty}
@@ -67,6 +91,7 @@ class Home extends React.Component {
           />
 
           <Picker
+            key="amount"
             title="Amount"
             help="Short or long ?"
             value={amount}
@@ -81,11 +106,12 @@ class Home extends React.Component {
           />
 
           <Picker
+            key="type"
             title="Types"
             help="True/False or MultiChoise"
             value={type}
-            values={['any', 'boolean', 'multiple']}
-            names={['All Questions', 'True or False', 'Multiple Choice']}
+            values={['boolean', 'multiple']}
+            names={['True or False', 'Multiple Choice']}
             onChange={event => {
               dispatch(
                 TrackType({
@@ -94,6 +120,10 @@ class Home extends React.Component {
               );
             }}
           />
+
+          <Button type="submit" variant="contained" color="primary">
+            Start Quiz
+          </Button>
         </form>
       </div>
     );

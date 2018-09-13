@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -42,7 +43,20 @@ function QuestionResult({ question }) {
   );
 }
 
-export default function Results({ quiz }) {
+function Score({ questions, answers }) {
+  // Find questions where user gave the answer
+  const correctAnswers = questions.filter((q, idx) => {
+    return q.correct_answer === answers[idx];
+  });
+
+  return (
+    <div>
+      {correctAnswers.length} / {questions.length}
+    </div>
+  );
+}
+
+export default function Results({ quiz, history }) {
   // Questions with their respective answers
   const QA = quiz.questions.map((q, idx) => {
     return {
@@ -53,11 +67,15 @@ export default function Results({ quiz }) {
 
   return (
     <div>
+      <div>
+        Final Score: <Score questions={quiz.questions} answers={quiz.answers} />
+      </div>
       <List dense={true}>
         {QA.map(qa => (
           <QuestionResult question={qa} />
         ))}
       </List>
+      <Button onClick={() => history.push('/')}> Go Back Home</Button>
     </div>
   );
 }

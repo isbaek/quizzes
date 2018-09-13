@@ -20,13 +20,6 @@ function mapStateToProps(state) {
   };
 }
 
-// const mapDispatchToProps = {
-//   nextQuestion,
-//   prevQuestion,
-//   checkAnswer,
-//   getQuestions
-// };
-
 function wrap(component) {
   const wrapped = connect(mapStateToProps)(component);
   return wrapped;
@@ -104,7 +97,7 @@ function ResultsRoute(props) {
   // Find matching quiz
   const quiz = quizzes.filter(q => q.id === id)[0];
 
-  return <Results quiz={quiz} />;
+  return <Results quiz={quiz} history={props.history} />;
 }
 
 export default Main;

@@ -4,6 +4,7 @@ import fetchQuestions from '../api/question';
 
 // Action Types
 export const START_QUIZ = 'START_QUIZ';
+export const ERR_QUIZ = 'ERR_QUIZ';
 export const FINISH_QUIZ = 'FINISH_QUIZ';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const TRACK_CATEGORY = 'TRACK_CATEGORY';
@@ -12,27 +13,37 @@ export const TRACK_AMOUNT = 'TRACK_AMOUNT';
 export const TRACK_TYPE = 'TRACK_TYPE';
 
 // Action Creators
-export async function StartNewQuiz({ category, difficulty, amount, type }) {
-  const questions = await fetchQuestions({
-    category,
-    difficulty,
-    amount,
-    type,
-  });
-
-  return {
-    type: START_QUIZ,
-    payload: {
-      id: uuid(),
-      questions,
-      answers: [],
-      startedAt: Date.now(),
-      finishedAt: null,
-      category,
-      difficulty,
-      amount,
-      type,
-    },
+export function StartNewQuiz({ category, difficulty, amount, type }) {
+  return async function(dispatch) {
+    try {
+      const questions = await fetchQuestions({
+        category,
+        difficulty,
+        amount,
+        type,
+      });
+      return dispatch({
+        type: START_QUIZ,
+        payload: {
+          id: uuid(),
+          questions: questions.results,
+          answers: [],
+          startedAt: Date.now(),
+          finishedAt: null,
+          category,
+          difficulty,
+          amount,
+          type,
+        },
+      });
+    } catch (error) {
+      return dispatch({
+        type: ERR_QUIZ,
+        payload: {
+          error,
+        },
+      });
+    }
   };
 }
 
@@ -89,6 +100,10 @@ export function TrackType({ type }) {
       type,
     },
   };
+}
+
+export function saveQuizzes(quizzes) {
+  return localStorage.setItem('quizzes', JSON.stringify(quizzes));
 }
 // CONTINUE_QUIZ
 // START_NEW_QUIZ
