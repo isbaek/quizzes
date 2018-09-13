@@ -38,6 +38,7 @@ function ReviewCard({ quiz }) {
 ReviewCard.propTypes = {
   quiz: PropTypes.object,
 };
+
 class Review extends React.Component {
   static propTypes = {
     quizzes: PropTypes.array,

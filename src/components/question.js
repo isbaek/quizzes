@@ -34,6 +34,9 @@ function QuestionMulti({ num, question, onAnswer }) {
           Question {num}
         </Typography>
         <Typography gutterBottom component="p">
+          ({question.category})
+        </Typography>
+        <Typography gutterBottom variant="title">
           {question.question}
         </Typography>
       </CardContent>
@@ -72,15 +75,18 @@ function QuestionSingle({ num, question, onAnswer }) {
           Question {num}
         </Typography>
         <Typography gutterBottom component="p">
+          ({question.category})
+        </Typography>
+        <Typography gutterBottom variant="title">
           {question.question}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" color="primary" onClick={() => onAnswer('True')}>
+        <Button size="medium" variant="contained" color="primary" onClick={() => onAnswer('True')}>
           True
         </Button>
         <Button
-          size="small"
+          size="medium"
           variant="contained"
           color="secondary"
           onClick={() => onAnswer('False')}

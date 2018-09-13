@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ErrorIcon from '@material-ui/icons/ErrorOutline';
+import Typography from '@material-ui/core/Typography';
 
 import Header from './header';
 
@@ -70,11 +71,10 @@ export default function Results({ quiz, history }) {
     <div className="results">
       <Header />
       <div className="results-list">
+        <Typography gutterBottom variant="title">
+          Your score: {correctAnswers.length} / {quiz.questions.length}
+        </Typography>
         <List dense={true}>
-          <ListItemText
-            className="results-text"
-            primary={`Your score: ${correctAnswers.length} / ${quiz.questions.length}`}
-          />
           {QA.map((qa, idx) => (
             <QuestionResult key={idx} question={qa} />
           ))}
