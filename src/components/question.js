@@ -40,8 +40,8 @@ function QuestionMulti({ num, question, onAnswer }) {
       </CardContent>
       <List>
         {possibleAnswers.map(a => (
-          <ListItem button>
-            <ListItemText primary={a} onClick={() => onAnswer(a)} />
+          <ListItem button onClick={() => onAnswer(a)}>
+            <ListItemText primary={a} />
           </ListItem>
         ))}
       </List>
