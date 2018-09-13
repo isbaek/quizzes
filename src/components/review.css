@@ -1,0 +1,19 @@
+.review {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.review-card {
+  height: 100px;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.review-container {
+  padding: 2rem;
+}

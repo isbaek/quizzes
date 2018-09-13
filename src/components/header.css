@@ -1,0 +1,19 @@
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  padding: 1rem;
+  color: white;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+}
+
+.header-link {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  display: inline-block;
+  margin-right: 1rem;
+}

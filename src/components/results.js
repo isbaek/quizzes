@@ -34,25 +34,13 @@ function QuestionResult({ question }) {
     <ListItem>
       <ListItemAvatar>{isCorrect ? <GoodIcon /> : <BadIcon />}</ListItemAvatar>
       <ListItemText
+        className="results-text"
         primary={question.question}
         secondary={
           question.answer ? `${question.answer} - (${question.correct_answer})` : 'No answer'
         }
       />
     </ListItem>
-  );
-}
-
-function Score({ questions, answers }) {
-  // Find questions where user gave the answer
-  const correctAnswers = questions.filter((q, idx) => {
-    return q.correct_answer === answers[idx];
-  });
-
-  return (
-    <div>
-      {correctAnswers.length} / {questions.length}
-    </div>
   );
 }
 
@@ -65,17 +53,23 @@ export default function Results({ quiz, history }) {
     };
   });
 
+  const correctAnswers = quiz.questions.filter((q, idx) => {
+    return q.correct_answer === quiz.answers[idx];
+  });
+
   return (
-    <div>
-      <div>
-        Final Score: <Score questions={quiz.questions} answers={quiz.answers} />
+    <div className="results">
+      <div className="results-list">
+        <List dense={true}>
+          <ListItemText
+            className="results-text"
+            primary={`Your score: ${correctAnswers.length} / ${quiz.questions.length}`}
+          />
+          {QA.map(qa => (
+            <QuestionResult question={qa} />
+          ))}
+        </List>
       </div>
-      <List dense={true}>
-        {QA.map(qa => (
-          <QuestionResult question={qa} />
-        ))}
-      </List>
-      <Button onClick={() => history.push('/')}> Go Back Home</Button>
     </div>
   );
 }

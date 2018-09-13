@@ -6,8 +6,9 @@ import store from '../reducers';
 import Quiz from '../components/quiz';
 import Home from '../components/home';
 import Results from '../components/results';
+import Review from '../components/review';
 
-import { AnswerQuestion } from '../actions/quiz';
+import { AnswerQuestion, DeleteQuiz } from '../actions/quiz';
 
 function mapStateToProps(state) {
   const { quizzes, category, difficulty, amount, type } = state.quizReducer;
@@ -33,6 +34,7 @@ class Main extends React.Component {
           <Switch>
             <Route path="/quiz/:id" component={wrap(QuizRoute)} />
             <Route path="/results/:id" component={wrap(ResultsRoute)} />
+            <Route path="/review" component={wrap(Review)} />
             <Route path="/" component={wrap(Home)} />
           </Switch>
         </BrowserRouter>
@@ -68,6 +70,14 @@ class QuizRoute extends React.Component {
     );
   };
 
+  onDelete = () => {
+    this.props.dispatch(
+      DeleteQuiz({
+        id: this.currentQuiz().id,
+      })
+    );
+  };
+
   render() {
     const quiz = this.currentQuiz();
 
@@ -81,7 +91,7 @@ class QuizRoute extends React.Component {
       return <Redirect to={`/results/${quiz.id}`} />;
     }
 
-    return <Quiz quiz={quiz} onAnswer={this.onAnswer} />;
+    return <Quiz quiz={quiz} onAnswer={this.onAnswer} onDelete={this.onDelete} />;
   }
 }
 

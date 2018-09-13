@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { Prompt } from 'react-router-dom';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import Header from './header';
 import Question from './question';
 
 class Quiz extends React.Component {
@@ -18,10 +20,22 @@ class Quiz extends React.Component {
     return 100 * (answers.length / questions.length);
   }
 
+  componentWillUnmount() {
+    const { questions, answers } = this.props.quiz;
+    if (questions.length - answers.length > 1) {
+      this.props.onDelete();
+    }
+  }
+
   render() {
     const { questions, answers } = this.props.quiz;
     return (
       <div className="quiz">
+        <Prompt
+          when={true}
+          message="Are you sure you want to exit? This will erase your current progresss"
+        />
+        <Header />
         <LinearProgress
           className="linear-progress"
           variant="determinate"

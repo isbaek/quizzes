@@ -27,7 +27,9 @@ import { dispatch } from 'rxjs/internal/observable/range';
 function Picker({ title, help, value, values, names, onChange }) {
   return (
     <FormControl className="form-control">
-      <InputLabel htmlFor="age-label-placeholder">{title}</InputLabel>
+      <InputLabel shrink={true} htmlFor="age-label-placeholder">
+        {title}
+      </InputLabel>
       <Select value={value} onChange={onChange} displayEmpty name="age">
         {values.map((v, idx) => (
           <MenuItem key={idx} value={v}>
@@ -70,6 +72,7 @@ class Home extends React.Component {
 
     return (
       <div className="home">
+        <Header />
         <div className="content">
           <form autoComplete="off" onSubmit={this.onSubmit}>
             <Picker
@@ -123,7 +126,7 @@ class Home extends React.Component {
             <Picker
               key="type"
               title="Types"
-              help="True/False or MultiChoise"
+              help="True/False or Multiple Choice"
               value={type}
               values={['boolean', 'multiple']}
               names={['True or False', 'Multiple Choice']}

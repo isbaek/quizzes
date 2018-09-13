@@ -3,6 +3,7 @@
 import {
   START_QUIZ,
   ERR_QUIZ,
+  DELETE_QUIZ,
   FINISH_QUIZ,
   ANSWER_QUESTION,
   TRACK_CATEGORY,
@@ -93,6 +94,11 @@ const quizReducer = (state = INITIAL_STATE, action) => {
         ...q,
         finishedAt: action.payload.finishedAt,
       }));
+    case DELETE_QUIZ:
+      return {
+        ...state,
+        quizzes: state.quizzes.filter(q => q.id !== action.payload.id),
+      };
     case ERR_QUIZ:
       return {
         ...state,

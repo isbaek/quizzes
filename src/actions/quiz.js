@@ -6,6 +6,7 @@ import fetchQuestions from '../api/question';
 export const START_QUIZ = 'START_QUIZ';
 export const ERR_QUIZ = 'ERR_QUIZ';
 export const FINISH_QUIZ = 'FINISH_QUIZ';
+export const DELETE_QUIZ = 'DELETE_QUIZ';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const TRACK_CATEGORY = 'TRACK_CATEGORY';
 export const TRACK_DIFFICULTY = 'TRACK_DIFFICULTY';
@@ -53,6 +54,15 @@ export function FinishQuiz({ id }) {
     payload: {
       id,
       finishedAt: Date.now(),
+    },
+  };
+}
+
+export function DeleteQuiz({ id }) {
+  return {
+    type: DELETE_QUIZ,
+    payload: {
+      id,
     },
   };
 }
@@ -105,23 +115,3 @@ export function TrackType({ type }) {
 export function saveQuizzes(quizzes) {
   return localStorage.setItem('quizzes', JSON.stringify(quizzes));
 }
-// CONTINUE_QUIZ
-// START_NEW_QUIZ
-// ANSWER_CURRENT_QUESTION
-// FINISH_QUIZ
-// TRACK_FAVORITE_CATEGORY
-// TRACK_FAVORITE_CATEGORY
-// User {
-//     Quizzes [
-//         {
-//         id
-//         []Questions //
-//         []Answers
-//         Diff
-//             StartedAt
-//             FinishedAt
-//         }
-//     ]
-//     FavoriteCategory
-//     FavoriteDifficulty
-// }

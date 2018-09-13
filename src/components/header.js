@@ -1,20 +1,31 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import QuizIcon from '@material-ui/icons/QuestionAnswer';
+import ContactIcon from '@material-ui/icons/ContactSupport';
+import ReviewIcon from '@material-ui/icons/RateReview';
 
 class Header extends React.Component {
   render() {
     return (
-      <AppBar position="static" color="primary">
-        <Toolbar variant="dense">
-          <Typography variant="title" color="inherit">
-            Quiz Fun
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <div className="header">
+        <Link className="header-link" to="/">
+          QuizWhiz
+          <QuizIcon />
+        </Link>
+        <div className="header-utils">
+          <Link className="header-link" title="Review Past Quizzes" to="/review">
+            <ReviewIcon />
+          </Link>
+
+          <a className="header-link" title="Contact Owner" href="mailto:contact@inseobaek.com">
+            <ContactIcon />
+          </a>
+        </div>
+      </div>
     );
   }
 }

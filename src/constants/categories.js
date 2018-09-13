@@ -4,31 +4,31 @@ export default [
     value: '9',
   },
   {
-    name: 'Entertainment: Books',
+    name: 'Books',
     value: '10',
   },
   {
-    name: 'Entertainment: Film',
+    name: 'Film',
     value: '11',
   },
   {
-    name: 'Entertainment: Music',
+    name: 'Music',
     value: '12',
   },
   {
-    name: 'Entertainment: Musicals & Theatres',
+    name: 'Musicals & Theatres',
     value: '13',
   },
   {
-    name: 'Entertainment: Television',
+    name: 'Television',
     value: '14',
   },
   {
-    name: 'Entertainment: Video Games',
+    name: 'Video Games',
     value: '15',
   },
   {
-    name: 'Entertainment: Board Games',
+    name: 'Board Games',
     value: '16',
   },
   {
@@ -80,7 +80,7 @@ export default [
     value: '28',
   },
   {
-    name: 'Entertainment: Comics',
+    name: 'Comics',
     value: '29',
   },
   {
@@ -88,11 +88,11 @@ export default [
     value: '30',
   },
   {
-    name: 'Entertainment: Japanese Anime & Manga',
+    name: 'Japanese Anime & Manga',
     value: '31',
   },
   {
-    name: 'Entertainment: Cartoon & Animations',
+    name: 'Cartoon & Animations',
     value: '32',
   },
   {
