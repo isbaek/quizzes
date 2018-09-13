@@ -59,7 +59,7 @@ function QuestionSingle({ num, question, onAnswer }) {
     <Card>
       <CardContent>
         <Typography gutterBottom variant="headline" component="h2">
-          Question 1
+          Question {num}
         </Typography>
         <Typography component="p">{cleanQ(question.question)}</Typography>
       </CardContent>
