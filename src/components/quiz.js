@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Prompt } from 'react-router-dom';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import Header from './header';
 import Question from './question';
 
@@ -22,6 +24,12 @@ class Quiz extends React.Component {
     return this.props.quiz.answers.length + 1;
   }
 
+  // Get quiz progress
+  quizProgress() {
+    const { questions, answers } = this.props.quiz;
+    return 100 * (answers.length / questions.length);
+  }
+
   // Destory quiz when a user leaves unfinished
   componentWillUnmount() {
     const { questions, answers } = this.props.quiz;
@@ -40,6 +48,11 @@ class Quiz extends React.Component {
         <Header />
 
         <div className="section">
+          <LinearProgress
+            className="linear-progress"
+            variant="determinate"
+            value={this.quizProgress()}
+          />
           <Question
             num={this.questionNum()}
             question={this.currentQuestion()}
