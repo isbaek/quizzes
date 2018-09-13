@@ -2,11 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
@@ -22,8 +18,8 @@ import {
   TrackType,
 } from '../actions/quiz';
 import CATEGORIES from '../constants/categories';
-import { dispatch } from 'rxjs/internal/observable/range';
 
+// Selection picker allows you to pick a value from a list of things
 function Picker({ title, help, value, values, names, onChange }) {
   return (
     <FormControl className="form-control">
@@ -42,9 +38,27 @@ function Picker({ title, help, value, values, names, onChange }) {
   );
 }
 
+Picker.propTypes = {
+  title: PropTypes.string,
+  help: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  values: PropTypes.array,
+  names: PropTypes.array,
+  onChange: PropTypes.func,
+};
+
 class Home extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func,
+    category: PropTypes.object,
+    difficulty: PropTypes.string,
+    amount: PropTypes.string,
+    type: PropTypes.string,
+    history: PropTypes.object,
+  };
+
   onSubmit = e => {
-    const { dispatch, category, difficulty, amount, type, history } = this.props;
+    const { dispatch, category, difficulty, amount, type } = this.props;
     e.preventDefault();
     dispatch(
       StartNewQuiz({
@@ -57,7 +71,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { amount, category, difficulty, dispatch, type, quizzes } = this.props;
+    const { amount, category, difficulty, dispatch, type } = this.props;
 
     return (
       <div className="home">

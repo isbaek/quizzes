@@ -16,7 +16,7 @@ const store = createStore(
 store.subscribe(() => {
   const state = store.getState().quizReducer.quizzes;
 
-  // Persist quizzes in session storage
+  // Persist quizzes in local storage
   saveQuizzes(state);
 });
 

@@ -4,6 +4,7 @@
 @import "./components/quiz.css";
 @import "./components/results.css";
 @import "./components/review.css";
+@import "./components/error.css";
 
 body {
   margin: 0;

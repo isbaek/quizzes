@@ -1,5 +1,6 @@
 import clean from '../utils/cleanText';
 
+// Fetch the API from DB
 export default function fetchQuestions({ category, difficulty, amount, type }) {
   let categoryParams = '';
   if (category !== 'any') {

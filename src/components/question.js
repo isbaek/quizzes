@@ -1,14 +1,13 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import shuffle from 'shuffle-array';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
@@ -21,6 +20,10 @@ export default function Question(props) {
   }
   return <div>Unsupported question type</div>;
 }
+
+Question.propTypes = {
+  question: PropTypes.object,
+};
 
 function QuestionMulti({ num, question, onAnswer }) {
   const possibleAnswers = shuffle([question.correct_answer, ...question.incorrect_answers]);
@@ -55,6 +58,12 @@ function QuestionMulti({ num, question, onAnswer }) {
   );
 }
 
+QuestionMulti.propTypes = {
+  num: PropTypes.string,
+  question: PropTypes.object,
+  onAnswer: PropTypes.func,
+};
+
 function QuestionSingle({ num, question, onAnswer }) {
   return (
     <Card className="question">
@@ -82,3 +91,9 @@ function QuestionSingle({ num, question, onAnswer }) {
     </Card>
   );
 }
+
+QuestionSingle.propTypes = {
+  num: PropTypes.string,
+  question: PropTypes.object,
+  onAnswer: PropTypes.func,
+};

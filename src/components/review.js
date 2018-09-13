@@ -1,16 +1,17 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
+
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Header from './header';
 import Typography from '@material-ui/core/Typography';
 
+// Review functional component to show quiz details
 function ReviewCard({ quiz }) {
   const correctAnswers = quiz.questions.filter((q, idx) => {
     return q.correct_answer === quiz.answers[idx];
@@ -34,14 +35,25 @@ function ReviewCard({ quiz }) {
   );
 }
 
+ReviewCard.propTypes = {
+  quiz: PropTypes.object,
+};
 class Review extends React.Component {
+  static propTypes = {
+    quizzes: PropTypes.array,
+  };
   render() {
     const { quizzes } = this.props;
     if (!quizzes || quizzes.length <= 0) {
       return (
-        <div className="review">
+        <div className="error">
           <Header />
-          Add in review
+          <div className="error-content">
+            <div className="error-wrapper">
+              <img src="/clueless_monkey.svg" alt="clueless-monkey" />
+              <Typography variant="headline">You need to complete at least one quiz!</Typography>
+            </div>
+          </div>
         </div>
       );
     }

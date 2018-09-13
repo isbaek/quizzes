@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 
 import store from '../reducers';
@@ -7,6 +7,7 @@ import Quiz from '../components/quiz';
 import Home from '../components/home';
 import Results from '../components/results';
 import Review from '../components/review';
+import ErrorPage from '../components/error';
 
 import { AnswerQuestion, DeleteQuiz } from '../actions/quiz';
 
@@ -21,36 +22,13 @@ function mapStateToProps(state) {
   };
 }
 
+// Connect to redux helper function
 function wrap(component) {
   const wrapped = connect(mapStateToProps)(component);
   return wrapped;
 }
 
-class Main extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/quiz/:id" component={wrap(QuizRoute)} />
-            <Route path="/results/:id" component={wrap(ResultsRoute)} />
-            <Route path="/review" component={wrap(Review)} />
-            <Route path="/" component={wrap(Home)} />
-          </Switch>
-        </BrowserRouter>
-      </Provider>
-    );
-  }
-}
-
-function QuizNotFound({ id }) {
-  return (
-    <div>
-      <h2>No such quiz: {id}</h2>
-    </div>
-  );
-}
-
+// Quiz route component where we handle redirects and deletes
 class QuizRoute extends React.Component {
   currentQuiz() {
     // Get router & state from props
@@ -70,6 +48,7 @@ class QuizRoute extends React.Component {
     );
   };
 
+  // Delete quiz if user navigates away
   onDelete = () => {
     this.props.dispatch(
       DeleteQuiz({
@@ -110,4 +89,21 @@ function ResultsRoute(props) {
   return <Results quiz={quiz} history={props.history} />;
 }
 
-export default Main;
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/quiz/:id" component={wrap(QuizRoute)} />
+            <Route path="/results/:id" component={wrap(ResultsRoute)} />
+            <Route path="/review" component={wrap(Review)} />
+            <Route path="/" exact={true} component={wrap(Home)} />
+            <Route component={ErrorPage} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    );
+  }
+}
+export default App;

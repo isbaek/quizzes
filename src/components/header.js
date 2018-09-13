@@ -1,9 +1,6 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import QuizIcon from '@material-ui/icons/QuestionAnswer';
 import ContactIcon from '@material-ui/icons/ContactSupport';
 import ReviewIcon from '@material-ui/icons/RateReview';

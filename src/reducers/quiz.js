@@ -1,5 +1,3 @@
-// Action Types
-
 import {
   START_QUIZ,
   ERR_QUIZ,
@@ -12,6 +10,7 @@ import {
   TRACK_TYPE,
 } from '../actions/quiz';
 
+// Read from local storage if there are existing saved quizzes
 function getCachedOptions() {
   try {
     const cachedOptions = JSON.parse(localStorage.getItem('quizzes'));
@@ -22,41 +21,7 @@ function getCachedOptions() {
 }
 
 const INITIAL_STATE = {
-  // quizzes: [
-  //   {
-  //     id: 'test',
-  //     questions: [
-  //       {
-  //         category: 'Entertainment: Film',
-  //         type: 'boolean',
-  //         difficulty: 'easy',
-  //         question: 'Shaquille O&#039;Neal appeared in the 1997 film &quot;Space Jam&quot;.',
-  //         correct_answer: 'False',
-  //         incorrect_answers: ['True'],
-  //       },
-  //       {
-  //         category: 'Entertainment: Video Games',
-  //         type: 'multiple',
-  //         difficulty: 'medium',
-  //         question: 'What was the main currency in Club Penguin?',
-  //         correct_answer: 'Coins',
-  //         incorrect_answers: ['Stamps', 'Tickets', 'Gems'],
-  //       },
-  //       {
-  //         category: 'Entertainment: Video Games',
-  //         type: 'multiple',
-  //         difficulty: 'medium',
-  //         question: 'Which of these characters is NOT a boss in Crash Bash?',
-  //         correct_answer: 'Ripper Roo',
-  //         incorrect_answers: ['Papu Papu', 'Komodo brothers', 'Nitros Oxide'],
-  //       },
-  //     ],
-  //     answers: ['True', 'Coins'],
-  //     startedAt: Date.now(),
-  //     finishedAt: null,
-  //   },
-  // ],
-  quizzes: getCachedOptions() ? getCachedOptions() : [],
+  quizzes: getCachedOptions() || [],
   amount: '10',
   difficulty: 'medium',
   category: {
@@ -82,6 +47,7 @@ function updateQuiz(state, id, quizMap) {
   };
 }
 
+// Main reducer function
 const quizReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case START_QUIZ:

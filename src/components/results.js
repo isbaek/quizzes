@@ -1,11 +1,10 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
@@ -13,6 +12,7 @@ import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 import Header from './header';
 
+// Icon to show correctness
 function GoodIcon() {
   return (
     <Avatar style={{ background: '#4CAF50' }}>
@@ -21,6 +21,7 @@ function GoodIcon() {
   );
 }
 
+// Icon to show incorrectness
 function BadIcon() {
   return (
     <Avatar style={{ background: '#E53935' }}>
@@ -29,6 +30,7 @@ function BadIcon() {
   );
 }
 
+// Individual result component
 function QuestionResult({ question }) {
   const isCorrect = question.answer === question.correct_answer;
 
@@ -46,6 +48,10 @@ function QuestionResult({ question }) {
   );
 }
 
+QuestionResult.propTypes = {
+  question: PropTypes.object,
+};
+
 export default function Results({ quiz, history }) {
   // Questions with their respective answers
   const QA = quiz.questions.map((q, idx) => {
@@ -55,6 +61,7 @@ export default function Results({ quiz, history }) {
     };
   });
 
+  // Get correct answers by comparing with user defined answers
   const correctAnswers = quiz.questions.filter((q, idx) => {
     return q.correct_answer === quiz.answers[idx];
   });
@@ -79,3 +86,8 @@ export default function Results({ quiz, history }) {
     </div>
   );
 }
+
+Results.propTypes = {
+  quiz: PropTypes.object,
+  history: PropTypes.object,
+};

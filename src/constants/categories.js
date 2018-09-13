@@ -1,3 +1,4 @@
+// Categories of question user can select from
 export default [
   {
     name: 'General Knowledge',

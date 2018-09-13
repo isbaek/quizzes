@@ -14,9 +14,12 @@ export const TRACK_AMOUNT = 'TRACK_AMOUNT';
 export const TRACK_TYPE = 'TRACK_TYPE';
 
 // Action Creators
+
+// Starts a new quiz
 export function StartNewQuiz({ category, difficulty, amount, type }) {
   return async function(dispatch) {
     try {
+      // Fetch questions depending on user selections
       const questions = await fetchQuestions({
         category,
         difficulty,
@@ -48,6 +51,7 @@ export function StartNewQuiz({ category, difficulty, amount, type }) {
   };
 }
 
+// User finishes a quiz
 export function FinishQuiz({ id }) {
   return {
     type: FINISH_QUIZ,
@@ -58,6 +62,7 @@ export function FinishQuiz({ id }) {
   };
 }
 
+// User navigates away from a quiz and doesn't complete it
 export function DeleteQuiz({ id }) {
   return {
     type: DELETE_QUIZ,
@@ -67,6 +72,7 @@ export function DeleteQuiz({ id }) {
   };
 }
 
+// User answers a question to a quiz
 export function AnswerQuestion({ id, answer }) {
   return {
     type: ANSWER_QUESTION,
@@ -77,6 +83,7 @@ export function AnswerQuestion({ id, answer }) {
   };
 }
 
+// Track user selected category
 export function TrackCategory({ category }) {
   return {
     type: TRACK_CATEGORY,
@@ -86,6 +93,7 @@ export function TrackCategory({ category }) {
   };
 }
 
+// Track user selected difficulty
 export function TrackDifficulty({ difficulty }) {
   return {
     type: TRACK_DIFFICULTY,
@@ -95,6 +103,7 @@ export function TrackDifficulty({ difficulty }) {
   };
 }
 
+// Track user selected amount
 export function TrackAmount({ amount }) {
   return {
     type: TRACK_AMOUNT,
@@ -103,6 +112,8 @@ export function TrackAmount({ amount }) {
     },
   };
 }
+
+// Track user selected type
 export function TrackType({ type }) {
   return {
     type: TRACK_TYPE,
@@ -112,6 +123,7 @@ export function TrackType({ type }) {
   };
 }
 
+// Save quiz to local storage so we can fetch it later
 export function saveQuizzes(quizzes) {
   return localStorage.setItem('quizzes', JSON.stringify(quizzes));
 }
