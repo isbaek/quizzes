@@ -14,11 +14,11 @@ class Header extends React.Component {
           <QuizIcon />
         </Link>
         <div className="header-utils">
-          <Link className="header-link" title="Review Past Quizzes" to="/review">
+          <Link className="header-link" title="Review" to="/review">
             <ReviewIcon />
           </Link>
 
-          <a className="header-link" title="Contact Owner" href="mailto:contact@inseobaek.com">
+          <a className="header-link" title="Help" href="mailto:contact@inseobaek.com">
             <ContactIcon />
           </a>
         </div>
