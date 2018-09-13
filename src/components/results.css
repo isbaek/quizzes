@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-flow: column nowrap;
 }
 
 .results-list {
@@ -15,6 +16,7 @@
   width: 500px;
   height: 300px;
   overflow-y: auto;
+  margin-bottom: 1rem;
 }
 .results-text {
   overflow: hidden;

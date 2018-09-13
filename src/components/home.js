@@ -42,17 +42,6 @@ function Picker({ title, help, value, values, names, onChange }) {
   );
 }
 
-function PastQuiz({ quiz }) {
-  console.log('quiz', quiz);
-  return (
-    <ListItem component="a">
-      sjadflksjaflksjlkfsjdlk
-      <ListItemText>Quiz {quiz.id}</ListItemText>
-      <Button>Review</Button>
-    </ListItem>
-  );
-}
-
 class Home extends React.Component {
   onSubmit = e => {
     const { dispatch, category, difficulty, amount, type, history } = this.props;

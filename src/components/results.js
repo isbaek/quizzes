@@ -11,6 +11,8 @@ import Avatar from '@material-ui/core/Avatar';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
+import Header from './header';
+
 function GoodIcon() {
   return (
     <Avatar style={{ background: '#4CAF50' }}>
@@ -59,17 +61,21 @@ export default function Results({ quiz, history }) {
 
   return (
     <div className="results">
+      <Header />
       <div className="results-list">
         <List dense={true}>
           <ListItemText
             className="results-text"
             primary={`Your score: ${correctAnswers.length} / ${quiz.questions.length}`}
           />
-          {QA.map(qa => (
-            <QuestionResult question={qa} />
+          {QA.map((qa, idx) => (
+            <QuestionResult key={idx} question={qa} />
           ))}
         </List>
       </div>
+      <Button variant="contained" color="secondary" onClick={() => history.push('/')}>
+        Go back Home
+      </Button>
     </div>
   );
 }

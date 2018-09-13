@@ -27,8 +27,10 @@ function QuestionMulti({ num, question, onAnswer }) {
   return (
     <Card className="question">
       <CardContent>
-        <Typography component="p">Question {num}</Typography>
-        <Typography gutterBottom variant="headline" component="h2">
+        <Typography gutterBottom component="p">
+          Question {num}
+        </Typography>
+        <Typography gutterBottom component="p">
           {question.question}
         </Typography>
       </CardContent>
@@ -40,7 +42,12 @@ function QuestionMulti({ num, question, onAnswer }) {
         ))}
       </List>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => onAnswer('blablabla')}>
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          onClick={() => onAnswer('blablabla')}
+        >
           Skip
         </Button>
       </CardActions>
@@ -52,16 +59,23 @@ function QuestionSingle({ num, question, onAnswer }) {
   return (
     <Card className="question">
       <CardContent>
-        <Typography component="p">Question {num}</Typography>
-        <Typography gutterBottom variant="headline" component="h2">
+        <Typography gutterBottom component="p">
+          Question {num}
+        </Typography>
+        <Typography gutterBottom component="p">
           {question.question}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => onAnswer('True')}>
+        <Button size="small" variant="contained" color="primary" onClick={() => onAnswer('True')}>
           True
         </Button>
-        <Button size="small" color="primary" onClick={() => onAnswer('False')}>
+        <Button
+          size="small"
+          variant="contained"
+          color="secondary"
+          onClick={() => onAnswer('False')}
+        >
           False
         </Button>
       </CardActions>

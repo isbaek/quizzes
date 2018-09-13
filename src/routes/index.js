@@ -103,6 +103,10 @@ function ResultsRoute(props) {
   // Find matching quiz
   const quiz = quizzes.filter(q => q.id === id)[0];
 
+  if (!quiz) {
+    return <Redirect to="/" />;
+  }
+
   return <Results quiz={quiz} history={props.history} />;
 }
 
