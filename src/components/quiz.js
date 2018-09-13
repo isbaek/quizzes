@@ -21,13 +21,20 @@ class Quiz extends React.Component {
   render() {
     const { questions, answers } = this.props.quiz;
     return (
-      <div>
-        <LinearProgress variant="determinate" value={this.quizProgress()} />
-        <Question
-          num={this.questionNum()}
-          question={this.currentQuestion()}
-          onAnswer={this.props.onAnswer}
+      <div className="quiz">
+        <LinearProgress
+          className="linear-progress"
+          variant="determinate"
+          value={this.quizProgress()}
         />
+
+        <div className="section">
+          <Question
+            num={this.questionNum()}
+            question={this.currentQuestion()}
+            onAnswer={this.props.onAnswer}
+          />
+        </div>
       </div>
     );
   }

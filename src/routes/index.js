@@ -81,11 +81,7 @@ class QuizRoute extends React.Component {
       return <Redirect to={`/results/${quiz.id}`} />;
     }
 
-    return (
-      <div>
-        <Quiz quiz={quiz} onAnswer={this.onAnswer} />
-      </div>
-    );
+    return <Quiz quiz={quiz} onAnswer={this.onAnswer} />;
   }
 }
 

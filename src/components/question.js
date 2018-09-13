@@ -31,7 +31,7 @@ export default function Question(props) {
 function QuestionMulti({ num, question, onAnswer }) {
   const possibleAnswers = shuffle([question.correct_answer, ...question.incorrect_answers]);
   return (
-    <Card>
+    <Card className="question">
       <CardContent>
         <Typography gutterBottom variant="headline" component="h2">
           Question {num}
@@ -56,7 +56,7 @@ function QuestionMulti({ num, question, onAnswer }) {
 
 function QuestionSingle({ num, question, onAnswer }) {
   return (
-    <Card>
+    <Card className="question">
       <CardContent>
         <Typography gutterBottom variant="headline" component="h2">
           Question {num}
