@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 
 import Header from './header';
 
@@ -76,76 +77,85 @@ class Home extends React.Component {
     return (
       <div className="home">
         <Header />
-        <div className="content">
-          <form autoComplete="off" onSubmit={this.onSubmit}>
-            <Picker
-              key="category"
-              title="Category"
-              help="Question Category"
-              value={category.value}
-              values={CATEGORIES.map(c => c.value)}
-              names={CATEGORIES.map(c => c.name)}
-              onChange={event => {
-                const v = event.target.value;
-                dispatch(
-                  TrackCategory({
-                    category: CATEGORIES.filter(c => c.value === v)[0],
-                  })
-                );
-              }}
-            />
+        <h2 className="heading-title"> Quiz Whiz Application</h2>
+        <p className="heading-subtitle">
+          Customize your questions or start playing right away. Can you score 100%?
+        </p>
+        <div className="wrapper">
+          <div className="content">
+            <form autoComplete="off" onSubmit={this.onSubmit}>
+              <Picker
+                key="category"
+                title="Category"
+                help="Question Category"
+                value={category.value}
+                values={CATEGORIES.map(c => c.value)}
+                names={CATEGORIES.map(c => c.name)}
+                onChange={event => {
+                  const v = event.target.value;
+                  dispatch(
+                    TrackCategory({
+                      category: CATEGORIES.filter(c => c.value === v)[0],
+                    })
+                  );
+                }}
+              />
 
-            <Picker
-              key="difficulty"
-              title="Difficulty"
-              help="Zero or hero ?"
-              value={difficulty}
-              values={['easy', 'medium', 'hard']}
-              names={['Easy', 'Medium', 'Hard']}
-              onChange={event => {
-                dispatch(
-                  TrackDifficulty({
-                    difficulty: event.target.value,
-                  })
-                );
-              }}
-            />
+              <Picker
+                key="difficulty"
+                title="Difficulty"
+                help="Zero or hero ?"
+                value={difficulty}
+                values={['easy', 'medium', 'hard']}
+                names={['Easy', 'Medium', 'Hard']}
+                onChange={event => {
+                  dispatch(
+                    TrackDifficulty({
+                      difficulty: event.target.value,
+                    })
+                  );
+                }}
+              />
 
-            <Picker
-              key="amount"
-              title="Amount"
-              help="Short or long ?"
-              value={amount}
-              values={['10', '20', '50']}
-              onChange={event => {
-                dispatch(
-                  TrackAmount({
-                    amount: event.target.value,
-                  })
-                );
-              }}
-            />
+              <Picker
+                key="amount"
+                title="Amount"
+                help="Short or long ?"
+                value={amount}
+                values={['10', '20', '50']}
+                onChange={event => {
+                  dispatch(
+                    TrackAmount({
+                      amount: event.target.value,
+                    })
+                  );
+                }}
+              />
 
-            <Picker
-              key="type"
-              title="Types"
-              help="True/False or Multiple Choice"
-              value={type}
-              values={['boolean', 'multiple']}
-              names={['True or False', 'Multiple Choice']}
-              onChange={event => {
-                dispatch(
-                  TrackType({
-                    type: event.target.value,
-                  })
-                );
-              }}
-            />
+              <Picker
+                key="type"
+                title="Types"
+                help="True/False or Multiple Choice"
+                value={type}
+                values={['boolean', 'multiple']}
+                names={['True or False', 'Multiple Choice']}
+                onChange={event => {
+                  dispatch(
+                    TrackType({
+                      type: event.target.value,
+                    })
+                  );
+                }}
+              />
 
-            <Button type="submit" variant="contained" color="primary">
-              Start Quiz
-            </Button>
-          </form>
+              <Button type="submit" variant="contained" color="primary">
+                Start Quiz
+              </Button>
+            </form>
+          </div>
+          <div className="studying-wrapper">
+            <img className="studying-image" src="/studying.svg" alt="studying" />
+          </div>
         </div>
       </div>
     );
